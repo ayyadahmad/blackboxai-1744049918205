@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75">
+    <div class="col-md-6 text-center">
+        <div class="error-page">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/404-error-1-457822.png" 
+                 alt="404 Error" 
+                 class="mb-4" 
+                 style="width: 150px; opacity: 0.7;">
+            
+            <h1 class="display-4 mb-3">Page Not Found</h1>
+            <p class="lead text-muted mb-4">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('login') }}" 
+                   class="btn btn-primary">
+                    <i class="fas fa-home me-2"></i>Go Home
+                </a>
+                <button class="btn btn-outline-secondary" onclick="history.back()">
+                    <i class="fas fa-arrow-left me-2"></i>Go Back
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.min-vh-75 {
+    min-height: 75vh;
+}
+.error-page {
+    animation: fadeInUp 0.5s ease-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endblock %}
