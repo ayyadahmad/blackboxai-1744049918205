@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}New Post - Social Media Automation{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title mb-4">Create New Post</h4>
+                
+                <form method="POST" enctype="multipart/form-data" id="postForm">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Platform Selection -->
+                    <div class="mb-4">
+                        <label class="form-label">Platform</label>
+                        <div class="d-flex gap-3 platform-selector">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="platform" value="facebook" id="platform-facebook" required>
+                                <label class="form-check-label platform-label" for="platform-facebook">
+                                    <i class="fab fa-facebook fa-2x text-primary"></i>
+                                    <span>Facebook</span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="platform" value="twitter" id="platform-twitter">
+                                <label class="form-check-label platform-label" for="platform-twitter">
+                                    <i class="fab fa-twitter fa-2x text-info"></i>
+                                    <span>Twitter</span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="platform" value="instagram" id="platform-instagram">
+                                <label class="form-check-label platform-label" for="platform-instagram">
+                                    <i class="fab fa-instagram fa-2x text-danger"></i>
+                                    <span>Instagram</span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="platform" value="pinterest" id="platform-pinterest">
+                                <label class="form-check-label platform-label" for="platform-pinterest">
+                                    <i class="fab fa-pinterest fa-2x text-danger"></i>
+                                    <span>Pinterest</span>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="platform" value="tiktok" id="platform-tiktok">
+                                <label class="form-check-label platform-label" for="platform-tiktok">
+                                    <i class="fab fa-tiktok fa-2x"></i>
+                                    <span>TikTok</span>
+                                </label>
+                            </div>
+                        </div>
+                        {% if form.platform.errors %}
+                            {% for error in form.platform.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!-- Media Upload -->
+                    <div class="mb-4">
+                        <label class="form-label">Media</label>
+                        <div class="media-upload-container">
+                            <div class="media-preview d-none mb-3">
+                                <img id="mediaPreview" class="img-fluid rounded" alt="Media preview">
+                                <video id="videoPreview" class="d-none w-100 rounded" controls></video>
+                            </div>
+                            <div class="upload-area" id="uploadArea">
+                                <input type="file" class="form-control" name="media" id="mediaInput" 
+                                       accept="image/*,video/*" required style="display: none;">
+                                <div class="text-center p-5 border-2 border-dashed rounded-3">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h5 class="mb-2">Drag and drop your media here</h5>
+                                    <p class="text-muted mb-3">or</p>
+                                    <button type="button" class="btn btn-outline-primary" id="browseButton">
+                                        Browse Files
+                                    </button>
+                                    <p class="small text-muted mt-2">
+                                        Supported formats: JPG, PNG, GIF, MP4, MOV<br>
+                                        Max file size: 16MB
+                                    </p>
+                                </div>
+                            </div>
+                            {% if form.media.errors %}
+                                {% for error in form.media.errors %}
+                                    <div class="text-danger small mt-1">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Caption -->
+                    <div class="mb-4">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            Caption
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="generateCaption">
+                                <i class="fas fa-magic me-1"></i>Generate with AI
+                            </button>
+                        </label>
+                        <div class="position-relative">
+                            {{ form.caption(class="form-control", rows="4", placeholder="Write your caption here...") }}
+                            <div class="character-count position-absolute bottom-0 end-0 p-2 small text-muted">
+                                <span id="charCount">0</span>/2200
+                            </div>
+                        </div>
+                        {% if form.caption.errors %}
+                            {% for error in form.caption.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!-- Schedule Time -->
+                    <div class="mb-4">
+                        <label class="form-label">Schedule Time</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar"></i>
+                            </span>
+                            {{ form.scheduled_time(class="form-control flatpickr", placeholder="Select date and time") }}
+                        </div>
+                        {% if form.scheduled_time.errors %}
+                            {% for error in form.scheduled_time.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Schedule Post
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+.platform-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.platform-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.form-check-input:checked + .platform-label {
+    border-color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+.platform-label span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.media-upload-container {
+    position: relative;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.upload-area {
+    transition: all 0.2s;
+}
+
+.upload-area.dragover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd !important;
+}
+
+.media-preview {
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.media-preview img,
+.media-preview video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.character-count {
+    font-size: 0.875rem;
+}
+
+/* Custom styling for flatpickr */
+.flatpickr-calendar {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.flatpickr-day.selected {
+    background: #0d6efd;
+    border-color: #0d6efd;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+// Initialize flatpickr
+flatpickr(".flatpickr", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    minDate: "today",
+    time_24hr: true
+});
+
+// Media upload preview
+const mediaInput = document.getElementById('mediaInput');
+const mediaPreview = document.querySelector('.media-preview');
+const imgPreview = document.getElementById('mediaPreview');
+const videoPreview = document.getElementById('videoPreview');
+const uploadArea = document.getElementById('uploadArea');
+const browseButton = document.getElementById('browseButton');
+
+browseButton.addEventListener('click', () => mediaInput.click());
+
+mediaInput.addEventListener('change', function(e) {
+    handleFiles(e.target.files);
+});
+
+// Drag and drop functionality
+uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+});
+
+uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+});
+
+uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+    if (files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            mediaPreview.classList.remove('d-none');
+            
+            if (file.type.startsWith('image/')) {
+                imgPreview.classList.remove('d-none');
+                videoPreview.classList.add('d-none');
+                imgPreview.src = e.target.result;
+            } else if (file.type.startsWith('video/')) {
+                imgPreview.classList.add('d-none');
+                videoPreview.classList.remove('d-none');
+                videoPreview.src = e.target.result;
+            }
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+// Character counter for caption
+const captionTextarea = document.querySelector('textarea[name="caption"]');
+const charCount = document.getElementById('charCount');
+
+captionTextarea.addEventListener('input', function() {
+    const count = this.value.length;
+    charCount.textContent = count;
+    
+    if (count > 2200) {
+        charCount.classList.add('text-danger');
+    } else {
+        charCount.classList.remove('text-danger');
+    }
+});
+
+// Generate caption with AI
+document.getElementById('generateCaption').addEventListener('click', function() {
+    const mediaFile = mediaInput.files[0];
+    if (!mediaFile) {
+        alert('Please upload an image first');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', mediaFile);
+    formData.append('platform', document.querySelector('input[name="platform"]:checked').value);
+
+    this.disabled = true;
+    this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Generating...';
+
+    fetch('/generate-caption', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            captionTextarea.value = data.caption;
+            captionTextarea.dispatchEvent(new Event('input'));
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('Error generating caption');
+    })
+    .finally(() => {
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-magic me-1"></i>Generate with AI';
+    });
+});
+</script>
+{% endblock %}
