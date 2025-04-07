@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - Social Media Automation{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title mb-4">Platform Settings</h4>
+                
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Facebook Settings -->
+                    <div class="settings-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-facebook fa-2x text-primary me-3"></i>
+                            <h5 class="mb-0">Facebook Configuration</h5>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.facebook_access_token(class="form-control", placeholder="Access Token") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>Access Token
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.facebook_page_id(class="form-control", placeholder="Page ID") }}
+                                            <label>
+                                                <i class="fas fa-id-card me-2"></i>Page ID
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="https://developers.facebook.com/docs/pages/access-tokens" 
+                                       target="_blank" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        How to get Facebook tokens?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Twitter Settings -->
+                    <div class="settings-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-twitter fa-2x text-info me-3"></i>
+                            <h5 class="mb-0">Twitter Configuration</h5>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.twitter_api_key(class="form-control", placeholder="API Key") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>API Key
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.twitter_api_secret(class="form-control", placeholder="API Secret") }}
+                                            <label>
+                                                <i class="fas fa-lock me-2"></i>API Secret
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.twitter_access_token(class="form-control", placeholder="Access Token") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>Access Token
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.twitter_access_token_secret(class="form-control", placeholder="Access Token Secret") }}
+                                            <label>
+                                                <i class="fas fa-lock me-2"></i>Access Token Secret
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="https://developer.twitter.com/en/docs/authentication/oauth-1-0a" 
+                                       target="_blank" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        How to get Twitter tokens?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instagram Settings -->
+                    <div class="settings-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-instagram fa-2x text-danger me-3"></i>
+                            <h5 class="mb-0">Instagram Configuration</h5>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.instagram_access_token(class="form-control", placeholder="Access Token") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>Access Token
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.instagram_business_account_id(class="form-control", placeholder="Business Account ID") }}
+                                            <label>
+                                                <i class="fas fa-id-card me-2"></i>Business Account ID
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="https://developers.facebook.com/docs/instagram-api/getting-started" 
+                                       target="_blank" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        How to get Instagram tokens?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pinterest Settings -->
+                    <div class="settings-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-pinterest fa-2x text-danger me-3"></i>
+                            <h5 class="mb-0">Pinterest Configuration</h5>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.pinterest_access_token(class="form-control", placeholder="Access Token") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>Access Token
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.pinterest_board_id(class="form-control", placeholder="Board ID") }}
+                                            <label>
+                                                <i class="fas fa-clipboard me-2"></i>Board ID
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="https://developers.pinterest.com/docs/api/v5/" 
+                                       target="_blank" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        How to get Pinterest tokens?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TikTok Settings -->
+                    <div class="settings-section mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-tiktok fa-2x me-3"></i>
+                            <h5 class="mb-0">TikTok Configuration</h5>
+                        </div>
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.tiktok_access_token(class="form-control", placeholder="Access Token") }}
+                                            <label>
+                                                <i class="fas fa-key me-2"></i>Access Token
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            {{ form.tiktok_open_id(class="form-control", placeholder="Open ID") }}
+                                            <label>
+                                                <i class="fas fa-id-card me-2"></i>Open ID
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="https://developers.tiktok.com/doc/login-kit-web" 
+                                       target="_blank" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        How to get TikTok tokens?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Save Settings
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.settings-section {
+    transition: transform 0.2s;
+}
+.settings-section:hover {
+    transform: translateY(-2px);
+}
+.form-floating > label {
+    color: #6c757d;
+}
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+.card {
+    border-radius: 15px;
+}
+.btn-lg {
+    padding: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle password visibility
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const type = input.type === 'password' ? 'text' : 'password';
+    input.type = type;
+}
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const platforms = ['facebook', 'twitter', 'instagram', 'pinterest', 'tiktok'];
+    let isValid = false;
+    
+    for (const platform of platforms) {
+        const inputs = document.querySelectorAll(`[name^="${platform}_"]`);
+        const platformFilled = Array.from(inputs).some(input => input.value.trim() !== '');
+        if (platformFilled) {
+            const platformComplete = Array.from(inputs).every(input => input.value.trim() !== '');
+            if (!platformComplete) {
+                e.preventDefault();
+                alert(`Please fill in all fields for ${platform.charAt(0).toUpperCase() + platform.slice(1)} or leave them all empty.`);
+                return;
+            }
+            isValid = true;
+        }
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please configure at least one social media platform.');
+    }
+});
+</script>
+{% endblock %}
