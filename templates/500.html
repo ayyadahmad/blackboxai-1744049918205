@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}500 - Server Error{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75">
+    <div class="col-md-6 text-center">
+        <div class="error-page">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/500-error-1-457823.png" 
+                 alt="500 Error" 
+                 class="mb-4" 
+                 style="width: 150px; opacity: 0.7;">
+            
+            <h1 class="display-4 mb-3">Server Error</h1>
+            <p class="lead text-muted mb-4">
+                Something went wrong on our end. We're working to fix it.
+            </p>
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('login') }}" 
+                   class="btn btn-primary">
+                    <i class="fas fa-home me-2"></i>Go Home
+                </a>
+                <button class="btn btn-outline-secondary" onclick="location.reload()">
+                    <i class="fas fa-redo me-2"></i>Try Again
+                </button>
+            </div>
+
+            {% if error_details %}
+            <div class="mt-4">
+                <div class="alert alert-danger">
+                    <h6 class="alert-heading">Error Details:</h6>
+                    <p class="mb-0"><code>{{ error_details }}</code></p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.min-vh-75 {
+    min-height: 75vh;
+}
+.error-page {
+    animation: fadeInUp 0.5s ease-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.alert {
+    text-align: left;
+    word-break: break-word;
+}
+</style>
+{% endblock %}
